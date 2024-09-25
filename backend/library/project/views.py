@@ -6,7 +6,12 @@ from .models import Book, Collection
 from django.contrib.auth.models import User
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.authentication import JWTAuthentication
-@api_view["GET"]
+from .serializers import BookSerializer, CollectionSerializer, userSerializer
+from rest_framework.response import Response
+
+
+
+@api_view(["GET"])
 def get_allbooks(request):
     query = request.GET.get("query")
     search_by = request.GET.get("search_by")
@@ -31,17 +36,38 @@ def get_allbooks(request):
     template = loader.get_template('home.html')
     return HttpResponse(template.render(context, request))
 
-@api_view(['POST'])
-@permission_classes([AllowAny])
-def userlogin(request):
-     pass
-
 
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def signup(request):
-     pass
+     serialiizer = userSerializer(data = request.data)
+
+     if serialiizer.is_valid():
+          serialiizer.save()
+
+          return Response(serialiizer.data)
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def userlogin(request):
+     serializer = TokenObtainPairSerializer(data = request.data)
+
+     if serializer.is_valid():
+          
+          user = serializer.user
+
+          refresh = serializer.for_user(user)
+          access = refresh.access_token
+          
+          return Response({
+               "username": user.username,
+               "email": user.email,
+               "access": str(access),
+               "refresh": str(refresh)
+          })
+
 
 
 
