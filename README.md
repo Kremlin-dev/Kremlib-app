@@ -29,7 +29,7 @@ Kremlib is a platform where users can explore a wide range of books, read them o
 1. **Clone the Repository**:
    ```bash
    git clone https://github.com/Kremlin-dev/Kremlib-app.git
-   cd kremlib
+   cd kremlib-app
    ```
 
 2. **Set Up Virtual Environment**:
