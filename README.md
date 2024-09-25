@@ -18,7 +18,7 @@ Kremlib is a platform where users can explore a wide range of books, read them o
 - **Backend**: Django, Django REST Framework
 - **Frontend**: (React)
 - **Authentication**: JWT (JSON Web Tokens) for secure user authentication and authorization
-- **Database**: MySQL (or any preferred relational database)
+- **Database**: MySQL 
 - **Storage**: Cloud storage for managing book uploads and downloads
 
 
