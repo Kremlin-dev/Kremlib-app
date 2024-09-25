@@ -1,6 +1,4 @@
-It seems like the code block delimiters (triple backticks) are still active, which causes everything after the first one to be formatted in the same block.
 
-Here’s the corrected version of your README, without extra `bash` formatting for non-command sections:
 
 # Kremlib 📚
 
