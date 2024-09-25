@@ -22,8 +22,6 @@ Kremlib is a platform where users can explore a wide range of books, read them o
 - **Storage**: Cloud storage for managing book uploads and downloads
 
 
-
-
 ## Installation
 
 1. **Clone the Repository**:
