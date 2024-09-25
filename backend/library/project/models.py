@@ -12,7 +12,6 @@ class Book(models.Model):
     def __str__(self):
         return self.title
 
-
 class Collection(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE) 
     book = models.ForeignKey(Book, on_delete=models.CASCADE) 

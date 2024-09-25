@@ -1,16 +1,13 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.http import HttpResponse, HttpResponseRedirect
-from django.template import loader
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from .models import Book, Collection
 from django.contrib.auth.models import User
-from .forms import signupForm, loginForm
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-
-
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework_simplejwt.authentication import JWTAuthentication
 @api_view["GET"]
-def home(request):
+def get_allbooks(request):
     query = request.GET.get("query")
     search_by = request.GET.get("search_by")
 
@@ -34,88 +31,23 @@ def home(request):
     template = loader.get_template('home.html')
     return HttpResponse(template.render(context, request))
 
-
+@api_view(['POST'])
+@permission_classes([AllowAny])
 def userlogin(request):
+     pass
 
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
 
-        if username and password:
-            user = authenticate(username=username, password =password)
 
-            if user is not None:
-                login(request, user)
-                return redirect('/userdash/')
-
-        message = 'Invalid Credentials'
-
-        template = loader.get_template('login.html')
-
-        return HttpResponse(template.render({'message': message}, request))
-
-    form = loginForm()
-
-    context = {
-        'form': form,
-    }
-
-    template = loader.get_template('login.html')
-
-    return HttpResponse(template.render(context, request))
-
+@api_view(['POST'])
+@permission_classes([AllowAny])
 def signup(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
+     pass
 
-        print(username)
 
-        if username and email and password:
 
-            newUser= User.objects.create_user(
-                username = username,
-                email = email,
-                password = password
-
-            )
-
-            newUser.save()
-
-            # message = "Signup was successful"
-            # template = loader.get_template('signup.html')
-            return redirect('/login/')
-
-    form = signupForm()
-
-    context = {
-        'form': form,
-    }
-
-    template = loader.get_template('signup.html')
-
-    return HttpResponse(template.render(context, request))
-
+    
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
+@authentication_classes([JWTAuthentication])
 def userdash(request):
-
-    template= loader.get_template('dashbaord.html')
-
-    return HttpResponse(template.render())
-
-def book_details(request, id):
-
-    book = Book.objects.filter(id=id)
-
-    if book is not None:
-        template = loader.get_template('bookdetail.html')
-
-        context = {
-            'book': book,
-        }
-
-        return HttpResponse(template.render(context,request))
-
-    return HttpResponse("No Book found")
-
-
+    pass
