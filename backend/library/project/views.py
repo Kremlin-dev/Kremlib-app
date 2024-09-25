@@ -8,34 +8,32 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .serializers import BookSerializer, CollectionSerializer, userSerializer
 from rest_framework.response import Response
+from rest_framework.status import status
 
+# @api_view(["GET"])
+# def get_allbooks(request):
+#     query = request.GET.get("query")
+#     search_by = request.GET.get("search_by")
 
+#     if not query and not search_by:
+#                 books = Book.objects.all()[:10]
 
-@api_view(["GET"])
-def get_allbooks(request):
-    query = request.GET.get("query")
-    search_by = request.GET.get("search_by")
+#     else:
+#         if search_by == 'title':
+#             books = Book.objects.filter(title__icontains=query)
 
-    if not query and not search_by:
-                books = Book.objects.all()[:10]
+#         elif search_by == 'author':
+#             books = Book.objects.filter(author__icontains=query)
 
-    else:
-        if search_by == 'title':
-            books = Book.objects.filter(title__icontains=query)
+#         elif search_by == 'isbn':
+#             books = Book.objects.filter(isbn__icontains=query)
 
-        elif search_by == 'author':
-            books = Book.objects.filter(author__icontains=query)
+#     context = {
+#             'books':books,
 
-        elif search_by == 'isbn':
-            books = Book.objects.filter(isbn__icontains=query)
-
-    context = {
-            'books':books,
-
-        }
-    template = loader.get_template('home.html')
-    return HttpResponse(template.render(context, request))
-
+#         }
+#     template = loader.get_template('home.html')
+#     return HttpResponse(template.render(context, request))
 
 
 @api_view(['POST'])
@@ -47,8 +45,6 @@ def signup(request):
           serialiizer.save()
 
           return Response(serialiizer.data)
-
-
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def userlogin(request):
@@ -58,7 +54,7 @@ def userlogin(request):
           
           user = serializer.user
 
-          refresh = serializer.for_user(user)
+          refresh = RefreshToken.for_user(user)
           access = refresh.access_token
           
           return Response({
@@ -67,10 +63,6 @@ def userlogin(request):
                "access": str(access),
                "refresh": str(refresh)
           })
-
-
-
-
     
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])

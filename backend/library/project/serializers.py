@@ -14,9 +14,10 @@ class CollectionSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class userSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True) 
     class Meta:
         model = User
-        fields = ["Username", "email"]
+        fields = ["username", "email", "password"]
 
     def create(self, validated_data):
         newuser = User(
@@ -27,7 +28,4 @@ class userSerializer(serializers.ModelSerializer):
 
         newuser.save()
 
-        return Response({
-            "username": newuser.username,
-            "email": newuser.email
-        })
+        return  newuser
