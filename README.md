@@ -1,4 +1,9 @@
-**Kremlib** 
+It seems like the code block delimiters (triple backticks) are still active, which causes everything after the first one to be formatted in the same block.
+
+Here’s the corrected version of your README, without extra `bash` formatting for non-command sections:
+
+```markdown
+# Kremlib 📚
 
 Kremlib is a platform where users can explore a wide range of books, read them online, and download them for offline use. In the future, users will also be able to upload their own books and share posts or reviews.
 
@@ -15,7 +20,7 @@ Kremlib is a platform where users can explore a wide range of books, read them o
 - **Frontend**: (React)
 - **Authentication**: JWT (JSON Web Tokens) for secure user authentication and authorization
 - **Database**: MySQL (or any preferred relational database)
-- **Storage**: cloud storage for managing book uploads and downloads
+- **Storage**: Cloud storage for managing book uploads and downloads
 
 ## Installation
 
@@ -52,29 +57,11 @@ Kremlib is a platform where users can explore a wide range of books, read them o
    ```bash
    python manage.py runserver
    ```
-<!-- 
-## API Endpoints
-Kremlib provides a RESTful API for interacting with the platform.
-
-- **`GET /api/books/`**: Retrieve a list of all available books.
-- **`GET /api/books/{id}/`**: Get details about a specific book.
-- **`POST /api/books/{id}/download/`**: Download a book by its ID.
-- **`POST /api/auth/login/`**: Log in to access restricted features.
-- **`POST /api/auth/register/`**: Register a new user. -->
 
 ## Future Development
 - **Book Upload**: Users will be able to upload their own books to Kremlib.
 - **Post Creation**: Users can write and share posts or reviews.
 - **Recommendations**: Book recommendations based on user preferences and reading history.
-
-<!-- ## Contributing
-We welcome contributions! Please follow these steps to contribute:
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature/YourFeature`).
-3. Make your changes and commit (`git commit -m 'Add new feature'`).
-4. Push the branch (`git push origin feature/YourFeature`).
-5. Open a pull request. -->
 
 ## License
 Kremlib is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
@@ -82,4 +69,3 @@ Kremlib is licensed under the MIT License. See the [LICENSE](LICENSE) file for m
 ## Contact
 For questions or support, please contact [yawamp27@gmail.com](mailto:yawam27@gmail.com).
 ```
-
