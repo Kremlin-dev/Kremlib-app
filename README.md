@@ -2,7 +2,6 @@ It seems like the code block delimiters (triple backticks) are still active, whi
 
 Here’s the corrected version of your README, without extra `bash` formatting for non-command sections:
 
-```markdown
 # Kremlib 📚
 
 Kremlib is a platform where users can explore a wide range of books, read them online, and download them for offline use. In the future, users will also be able to upload their own books and share posts or reviews.
@@ -21,6 +20,9 @@ Kremlib is a platform where users can explore a wide range of books, read them o
 - **Authentication**: JWT (JSON Web Tokens) for secure user authentication and authorization
 - **Database**: MySQL (or any preferred relational database)
 - **Storage**: Cloud storage for managing book uploads and downloads
+
+
+
 
 ## Installation
 
