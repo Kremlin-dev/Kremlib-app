@@ -10,7 +10,7 @@ class adminsite(admin.AdminSite):
 siteadmin = adminsite(name= 'siteadmin')
 
 class BookPanel(admin.ModelAdmin):
-    list_display= ("title", "author", "description", "year", "isbn", "image", "ebook")
+    list_display= ("title", "author", "description", "year", "isbn", "image", "ebook","uploaded_by","category","is_public","uploaded_on")
 
 class CollectionPanel(admin.ModelAdmin):
     list_display =("user", "book", "added_on")

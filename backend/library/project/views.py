@@ -6,9 +6,52 @@ from .models import Book, Collection
 from django.contrib.auth.models import User
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from .serializers import BookSerializer, CollectionSerializer, userSerializer
+from .serializers import BookSerializer, CollectionSerializer, UserSerializer
 from rest_framework.response import Response
-from rest_framework.status import status
+
+@api_view(["POST"])
+@permission_classes([AllowAny])
+def register(request):
+    serializer = UserSerializer(data = request.data)
+
+    if serializer.is_valid():
+        user = serializer.save
+
+        refresh = RefreshToken.for_user(user)
+        access = refresh.access_token
+
+        return Response({
+               "message": "Signup was successful",
+               "refresh": str(refresh),
+               "access": str(access),
+               "username": user.username
+          })
+    return Response({"message": "User data could not be validated"})
+
+@api_view(["POST"])
+@permission_classes([AllowAny])
+def login(request):
+    serializer = TokenObtainPairSerializer(data = request.data)
+
+    if serializer.is_valid():
+         tokens = serializer.validated_data
+
+         refresh = tokens['refresh']
+         access =  tokens['access']
+
+         return Response({
+              "message": "Login was a success",
+              "refresh": str(refresh),
+              "access": str(access)
+         })
+    return Response({"message": "Data could not be validated"})
+
+
+
+
+
+
+
 
 # @api_view(["GET"])
 # def get_allbooks(request):
