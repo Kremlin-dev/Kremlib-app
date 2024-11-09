@@ -15,7 +15,7 @@ def register(request):
     serializer = UserSerializer(data = request.data)
 
     if serializer.is_valid():
-        user = serializer.save
+        user = serializer.save()
 
         refresh = RefreshToken.for_user(user)
         access = refresh.access_token
@@ -79,34 +79,7 @@ def login(request):
 #     return HttpResponse(template.render(context, request))
 
 
-@api_view(['POST'])
-@permission_classes([AllowAny])
-def signup(request):
-     serialiizer = userSerializer(data = request.data)
 
-     if serialiizer.is_valid():
-          serialiizer.save()
-
-          return Response(serialiizer.data)
-@api_view(['POST'])
-@permission_classes([AllowAny])
-def userlogin(request):
-     serializer = TokenObtainPairSerializer(data = request.data)
-
-     if serializer.is_valid():
-          
-          user = serializer.user
-
-          refresh = RefreshToken.for_user(user)
-          access = refresh.access_token
-          
-          return Response({
-               "username": user.username,
-               "email": user.email,
-               "access": str(access),
-               "refresh": str(refresh)
-          })
-    
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
 @authentication_classes([JWTAuthentication])
