@@ -6,7 +6,7 @@ from .models import Book, Collection
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model= Book
-        fieds = ["title", "author", "description", "year", "isbn"]
+        fields = ["title", "author", "description", "year", "isbn"]
 
 class CollectionSerializer(serializers.ModelSerializer):
     class Meta:

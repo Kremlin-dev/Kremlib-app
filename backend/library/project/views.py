@@ -52,27 +52,21 @@ def home(request):
     books = Book.objects.all()[:20]
 
     serializer = BookSerializer(books, many = True)
-
-    if serializer is not None:
+    if serializer.data:
         return Response(serializer.data)
-    
-    return ResourceWarning({"message": "Books not found!"})
+    return Response({"message": "Books not found!"})
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])  
 @authentication_classes([JWTAuthentication])
-def userdash(request):
-    books = Book.objects.all()[:20]
+def getbooks(request):
+    books = Book.objects.all()
+    serializer = BookSerializer(books, many=True)
+    print("Serialized data:", serializer.data)
 
-    serializer = BookSerializer(books, many = True)
-
-    if serializer is not None:
-        return Response(serializer.data)
-    
-    return ResourceWarning({"message": "Books not found!"})
-
-
-
+    if not serializer.data:
+        return Response({"message": "Books not found!"})
+    return Response(serializer.data)
 
 
 
