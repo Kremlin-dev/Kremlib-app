@@ -67,25 +67,26 @@ def getallbooks(request):
     bookfilter = BookFilter(request.GET, queryset=books)
     filteredbook = bookfilter.qs
 
-
     serializer = BookSerializer(filteredbook, many=True)
-    
+
     if not serializer.data:
         return Response({"message": "Books not found!"})
     return Response(serializer.data)
 
 # pagination will be applied here
 
-@api_view(['GET', 'POST'])
-@permission_classes([AllowAny])
-def filterbook(request):
 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+@authentication_classes([JWTAuthentication])
+def uploadbook(request):
 
-
-    pass
-
-
-
+    serializer = BookSerializer(data = request.data)
+    if serializer.is_valid():
+        serializer.save(uploaded_by=request.user)
+        return Response(serializer.data)
+    
+    return Response({"message": "Data could not be validated", "errors": serializer.errors})
 
 # @api_view(["GET"])
 # def get_allbooks(request):

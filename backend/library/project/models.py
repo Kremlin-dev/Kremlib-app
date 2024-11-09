@@ -28,7 +28,7 @@ class Book(models.Model):
     image = models.ImageField(upload_to='static/bookImages/', null=True)
     ebook = models.FileField(upload_to='ebooks/', null=True, blank=True)
     uploaded_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='uploaded_books')
-    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='Novel')
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
     is_public = models.BooleanField(default=True)  
     uploaded_on = models.DateTimeField(auto_now_add=True)
 
