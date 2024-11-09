@@ -8,6 +8,8 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .serializers import BookSerializer, CollectionSerializer, UserSerializer
 from rest_framework.response import Response
+from rest_framework import filters
+from .filters import BookFilter
 
 @api_view(["POST"])
 @permission_classes([AllowAny])
@@ -59,14 +61,29 @@ def home(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])  
 @authentication_classes([JWTAuthentication])
-def getbooks(request):
+def getallbooks(request):
     books = Book.objects.all()
-    serializer = BookSerializer(books, many=True)
-    print("Serialized data:", serializer.data)
 
+    bookfilter = BookFilter(request.GET, queryset=books)
+    filteredbook = bookfilter.qs
+
+
+    serializer = BookSerializer(filteredbook, many=True)
+    
     if not serializer.data:
         return Response({"message": "Books not found!"})
     return Response(serializer.data)
+
+# pagination will be applied here
+
+@api_view(['GET', 'POST'])
+@permission_classes([AllowAny])
+def filterbook(request):
+
+
+
+    pass
+
 
 
 
@@ -87,15 +104,12 @@ def getbooks(request):
 
 #         elif search_by == 'isbn':
 #             books = Book.objects.filter(isbn__icontains=query)
-
 #     context = {
 #             'books':books,
 
 #         }
 #     template = loader.get_template('home.html')
 #     return HttpResponse(template.render(context, request))
-
-
 
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])

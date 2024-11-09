@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "project",
     "rest_framework",
     "rest_framework_simplejwt",
+    "django_filters",
 ]
 
 REST_FRAMEWORK = {
