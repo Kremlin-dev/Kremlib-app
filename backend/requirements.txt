@@ -5,3 +5,10 @@ djangorestframework-simplejwt==5.3.1
 PyJWT==2.9.0
 sqlparse==0.5.1
 tzdata==2024.2
+django-cors-headers==4.3.1
+django-filter==23.5
+Pillow==10.2.0
+python-dotenv==1.0.1
+markdown==3.5.2
+drf-yasg==1.21.7
+PyPDF2==3.0.1
